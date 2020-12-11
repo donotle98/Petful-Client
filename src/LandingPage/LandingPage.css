@@ -1,0 +1,74 @@
+.dogpic {
+    margin: auto;
+    width: 280px;
+    height: 280px;
+    background-image: url("../assets/landingpagedog.png");
+    background-size: cover;
+}
+.landingpage-div h1 {
+    text-align: center;
+    margin: 15px;
+    border-bottom: solid 2px black;
+}
+.landingpage-div p {
+    text-align: center;
+    margin: 10px;
+    font-size: 19px;
+    line-height: 30px;
+}
+.getStarted-btn {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.btn {
+    border: 5px solid #2c3e50;
+    color: #2c3e50;
+    font-size: 16px;
+    letter-spacing: 0.1rem;
+    padding: 1rem;
+    position: relative;
+    text-decoration: none;
+    text-transform: uppercase;
+    background-color: #1abc9c;
+    box-shadow: 10px 10px 0 #3498db, 20px 20px 0 #e26a6a;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.5s;
+}
+
+.btn:hover {
+    box-shadow: none;
+    transition: 0.5s;
+}
+
+@media all and (min-width: 800px) {
+    .dogpic {
+        width: 330px;
+        height: 330px;
+    }
+    .catpic {
+        background-image: url("../assets/landingpagecats.jpg");
+        width: 330px;
+        height: 330px;
+        background-size: cover;
+        background-position: -60px 10px;
+    }
+    .landingpics {
+        margin: auto;
+        display: grid;
+        grid-template-columns: auto auto;
+        margin-bottom: 50px;
+        margin-top: 50px;
+    }
+    .landingpage-div p {
+        font-size: 22px;
+        margin: auto;
+        margin-top: 20px;
+        margin-bottom: 45px;
+        width: 600px;
+    }
+    .btn {
+        font-size: 20px;
+    }
+}

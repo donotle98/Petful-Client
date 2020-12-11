@@ -1,0 +1,42 @@
+.control-center {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.control-center button {
+    background-color: #1abc9c;
+    border: 2px solid;
+    font: inherit;
+    line-height: 1;
+    margin: 10px;
+    padding: 10px 20px;
+    transition: 0.5s;
+}
+.control-center button:hover {
+    box-shadow: 5px 5px rgb(255, 255, 103), 10px 10px rgb(255, 125, 125);
+    transition: 0.5s;
+}
+.newname-form label {
+    font-size: 20px;
+    margin-right: 10px;
+}
+.newname-form input {
+    height: 25px;
+    width: 180px;
+}
+.newname-form input:focus {
+    outline: none;
+}
+.newname-form button {
+    padding: 7px 15px;
+}
+.adoption-page h2 {
+    margin: 10px;
+}
+@import url("https://fonts.googleapis.com/css2?family=Nerko+One&display=swap");
+.adopter-name {
+    text-align: center;
+    margin: 20px;
+    font-family: "Nerko One", cursive;
+    font-size: 30px;
+}

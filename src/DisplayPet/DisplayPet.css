@@ -1,0 +1,17 @@
+.each-petInfo h2 {
+    margin: 10px;
+}
+.pet-image {
+    text-align: center;
+}
+.pet-image img {
+    width: 330px;
+    margin-bottom: 20px;
+}
+.petInfo {
+    margin-bottom: 40px;
+}
+.petInfo p {
+    margin-left: 10px;
+    margin-bottom: 5px;
+}
