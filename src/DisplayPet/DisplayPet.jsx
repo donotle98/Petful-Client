@@ -6,15 +6,16 @@ export class DisplayPet extends Component {
     static contextType = PetfulContext;
     state = { currentPet: {} };
     handleAdopt = () => {
-        console.log(this.props.pet.first);
         this.setState({
             currentPet: this.props.pet.first,
         });
     };
     handleAdoptButton = () => {
-        if (this.context.Adopters[0] === this.props.userName) {
-            return <button onClick={this.handleAdopt}>Adopt</button>;
-        }
+        this.context.Adopters.map((names) => {
+            if (names[0] === this.props.userName) {
+                return <button onClick={this.handleAdopt}>Adopt</button>;
+            }
+        });
     };
     renderFirstPetInfo = () => {
         return (

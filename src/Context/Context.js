@@ -7,6 +7,7 @@ const PetfulContext = React.createContext({
     isLoading: null,
     setDogs: () => {},
     setCats: () => {},
+    setAdopters: () => {},
     adoptedCat: () => {},
     adoptedDog: () => {},
 });
@@ -28,7 +29,7 @@ export class PetfulProvider extends Component {
     };
     setAdopters = (names) => {
         this.setState({
-            Adopters: [...this.state.Adopters, names],
+            Adopters: [names],
         });
     };
     setCats = (first, list) => {

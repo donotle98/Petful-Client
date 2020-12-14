@@ -6,7 +6,7 @@ const PetfulServices = {
         );
     },
     addAdopter(name) {
-        return fetch(`http://localhost:8080/people`, {
+        return fetch("http://localhost:8080/people", {
             method: "POST",
             headers: {
                 "content-type": "application/json",

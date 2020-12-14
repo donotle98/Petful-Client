@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import PetfulServices from "../Services/PetfulServices";
 import PetfulContext from "../Context/Context";
+import ReactTimeout from "react-timeout";
 import DisplayPet from "../DisplayPet/DisplayPet";
-import DisplayPeople from "../DisplayPeople/DisplayPeople";
 import "./Adopt.css";
 
 class Adopt extends Component {
@@ -18,7 +18,10 @@ class Adopt extends Component {
         });
     };
     handleAddUserToQueue = () => {
-        PetfulServices.addAdopter(this.state.name).then((res) => {
+        const newName = {
+            name: this.state.name,
+        };
+        PetfulServices.addAdopter(newName).then((res) => {
             this.context.setAdopters(res);
         });
         this.setState({
