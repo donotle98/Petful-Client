@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import PetfulServices from "../Services/PetfulServices";
 import PetfulContext from "../Context/Context";
-import ReactTimeout from "react-timeout";
 import DisplayPet from "../DisplayPet/DisplayPet";
 import "./Adopt.css";
 
