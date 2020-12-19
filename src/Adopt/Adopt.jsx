@@ -73,11 +73,9 @@ class Adopt extends Component {
             const type = ["dogs", "cats"][Math.round(Math.random())];
             this.adoptPet(type);
             this.handleAddUserToQueue(faker.name.findName());
-            while (this.state.adopterNames[0] !== this.state.name) {
-                PetfulServices.dequeuePeople().then((res) =>
-                    this.context.setAdopters(res)
-                );
-            }
+            PetfulServices.dequeuePeople().then((res) =>
+                this.context.setAdopters(res)
+            );
         }, 5000);
 
         const stopTimer = setInterval(() => {
