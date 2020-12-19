@@ -3,6 +3,8 @@ import { withRouter } from "react-router-dom";
 import PetfulServices from "../Services/PetfulServices";
 import PetfulContext from "../Context/Context";
 import DisplayPet from "../DisplayPet/DisplayPet";
+import faker from "faker";
+import config from "../config";
 import "./Adopt.css";
 
 class Adopt extends Component {
@@ -10,6 +12,8 @@ class Adopt extends Component {
     state = {
         name: "",
         submitName: false,
+        firstPerson: false,
+        adopterNames: [],
     };
     handleChangeName = (e) => {
         this.setState({
@@ -26,6 +30,7 @@ class Adopt extends Component {
         this.setState({
             submitName: false,
         });
+        this.timerFunc();
     };
     handleSubmitNewName = () => {
         if (this.state.submitName) {
@@ -53,6 +58,35 @@ class Adopt extends Component {
             );
         }
     };
+    adoptPet = (type) => {
+        PetfulServices.dequeuePet(type).then((json) => {
+            if (type === "dogs") {
+                this.context.setDogs(json.value, json.list);
+            }
+            if (type === "cats") {
+                this.context.setCats(json.value, json.list);
+            }
+        });
+    };
+    timerFunc = () => {
+        const adoptionTimer = setInterval(() => {
+            const type = ["dogs", "cats"][Math.round(Math.random())];
+            this.adoptPet(type);
+            this.handleAddUserToQueue(faker.name.findName());
+            while (this.state.adopterNames[0] !== this.state.name) {
+                PetfulServices.dequeuePeople().then((res) =>
+                    this.context.setAdopters(res)
+                );
+            }
+        }, 5000);
+
+        const stopTimer = setInterval(() => {
+            if (this.state.firstPerson) {
+                clearInterval(adoptionTimer);
+                clearInterval(stopTimer);
+            }
+        });
+    };
 
     componentDidMount() {
         PetfulServices.getAdopters().then((res) => {
@@ -76,6 +110,7 @@ class Adopt extends Component {
                 <div className='adopter-sect'>
                     {this.context.Adopters.map((names) => {
                         return names.map((name, y) => {
+                            this.state.adopterNames.push(name);
                             return (
                                 <h2 className='adopter-name' key={y}>
                                     {name}

@@ -14,6 +14,16 @@ const PetfulServices = {
             body: JSON.stringify(name),
         }).then((res) => res.json());
     },
+    dequeuePeople() {
+        return fetch(`${config.API_ENDPOINT}/people`, {
+            method: "DELETE",
+        }).then((res) => res.json());
+    },
+    dequeuePet(type) {
+        return fetch(`${config.API_ENDPOINT}/pets/${type}`, {
+            method: "DELETE",
+        }).then((res) => res.json());
+    },
     getDogs() {
         return fetch(`${config.API_ENDPOINT}/pets/dogs`).then((res) =>
             !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
