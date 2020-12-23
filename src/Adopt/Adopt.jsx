@@ -32,7 +32,9 @@ class Adopt extends Component {
             if (res[0] !== this.state.name) {
                 this.dequeuePeople();
             }
+            PetfulServices.addAdopter(newName);
         });
+
         this.setState({
             submitName: false,
         });
@@ -76,14 +78,12 @@ class Adopt extends Component {
     };
 
     timer = () => {
-        let count = 0;
         const interval = setInterval(() => {
             console.log("Timer called");
             console.log("Users name: ", this.state.name);
             this.handleAddUserToQueue(faker.name.findName());
             const type = ["cats", "dogs"][Math.round(Math.random())];
             this.adoptPet(type);
-            count++;
             if (this.state.firstPerson === this.state.name) {
                 this.stopTime(interval);
                 this.setState({
