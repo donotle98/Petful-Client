@@ -1,5 +1,16 @@
 # Petful Client
 
+<h1>The Pet Adoption App!</h1>
+<p>This app implements a queue to adopt either a cat or a dog.</p>
+<p>The user must first submit their name to the end of the queue, then a timer will start in which pets will start to get adopted at random and names will appear at the end of the queue.</p>
+<p>Once the user's name is at the front of the queue, an adopt button will appear below one of the pets, to which the user can press to adopt</p>
+<p>Their name will disappear and the animal they chose along with them</p>
+
+<h1>Landing Page</h1>
+<img src="src/assets/introPage.png"/>
+<h1>Adoption Page</h1>
+<img src="src/assets/adoptionPage.png"/>
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
