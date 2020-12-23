@@ -162,6 +162,7 @@ class Adopt extends Component {
                         type={"dogs"}
                         userName={this.state.name}
                         adopt={this.state.isUserFirstPerson}
+                        dequeuePeople={this.dequeuePeople}
                     />
                 </div>
                 <div className='pet-display'>
@@ -170,6 +171,7 @@ class Adopt extends Component {
                         type={"cats"}
                         userName={this.state.name}
                         adopt={this.state.isUserFirstPerson}
+                        dequeuePeople={this.dequeuePeople}
                     />
                 </div>
             </div>

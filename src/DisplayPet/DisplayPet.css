@@ -15,3 +15,20 @@
     margin-left: 10px;
     margin-bottom: 5px;
 }
+.adopt-button {
+    margin: auto;
+    text-align: center;
+}
+.adopt-button button {
+    background-color: #1abc9c;
+    border: 2px solid;
+    font: inherit;
+    line-height: 1;
+    margin: 10px;
+    padding: 10px 20px;
+    transition: 0.5s;
+}
+.adopt-button button:hover {
+    box-shadow: 5px 5px rgb(255, 255, 103), 10px 10px rgb(255, 125, 125);
+    transition: 0.5s;
+}

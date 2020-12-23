@@ -8,7 +8,7 @@ export class DisplayPet extends Component {
     state = { currentPet: {}, adoptButton: false };
     handleAdopt = () => {
         PetfulServices.dequeuePet(this.props.type).then((json) => {
-            PetfulServices.dequeuePeople();
+            this.props.dequeuePeople();
             if (this.props.type === "dogs") {
                 this.context.setDogs(json.value, json.list);
             }
@@ -21,8 +21,16 @@ export class DisplayPet extends Component {
     handleAdoptButton = () => {
         if (this.props.adopt === true) {
             return (
-                <div>
-                    <button onClick={() => this.handleAdopt()}>Adopt</button>
+                <div className='adopt-button'>
+                    <button
+                        onClick={() => {
+                            this.handleAdopt();
+                            window.location.reload();
+                            return false;
+                        }}
+                    >
+                        Adopt
+                    </button>
                 </div>
             );
         }
