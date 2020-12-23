@@ -2,8 +2,8 @@
 
 <h1>The Pet Adoption App!</h1>
 
-<a href="https://petful-client-git-master.donotle98.vercel.app/">Link to Live App!!!</a>
-<a href="https://github.com/donotle98/Petful-Server">Link to Server Code!!!</a>
+<a href="https://petful-client-git-master.donotle98.vercel.app/">Link to Live App!!!</a><br/>
+<a href="https://github.com/donotle98/Petful-Server">Link to Server Code!!!</a><br/>
 <span>The client uses React.js components</span>
 
 <p>This app implements a queue to adopt either a cat or a dog.</p>
