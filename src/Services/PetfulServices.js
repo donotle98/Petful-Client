@@ -17,9 +17,10 @@ const PetfulServices = {
     dequeuePeople() {
         return fetch(`${config.API_ENDPOINT}/people`, {
             method: "DELETE",
-        }).then((res) => res.json());
+        }).then((res) => console.log(res));
     },
     dequeuePet(type) {
+        console.log(type);
         return fetch(`${config.API_ENDPOINT}/pets/${type}`, {
             method: "DELETE",
         }).then((res) => res.json());

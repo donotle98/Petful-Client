@@ -4,7 +4,6 @@ import PetfulServices from "../Services/PetfulServices";
 import PetfulContext from "../Context/Context";
 import DisplayPet from "../DisplayPet/DisplayPet";
 import faker from "faker";
-import config from "../config";
 import "./Adopt.css";
 
 class Adopt extends Component {
@@ -12,7 +11,8 @@ class Adopt extends Component {
     state = {
         name: "",
         submitName: false,
-        firstPerson: false,
+        isUserFirstPerson: false,
+        firstPerson: "",
         adopterNames: [],
     };
     handleChangeName = (e) => {
@@ -20,17 +20,22 @@ class Adopt extends Component {
             name: e.currentTarget.value,
         });
     };
-    handleAddUserToQueue = () => {
+    handleAddUserToQueue = (name) => {
         const newName = {
-            name: this.state.name,
+            name: name,
         };
         PetfulServices.addAdopter(newName).then((res) => {
             this.context.setAdopters(res);
+            this.setState({
+                firstPerson: res[1],
+            });
+            if (res[0] !== this.state.name) {
+                this.dequeuePeople();
+            }
         });
         this.setState({
             submitName: false,
         });
-        this.timerFunc();
     };
     handleSubmitNewName = () => {
         if (this.state.submitName) {
@@ -48,7 +53,8 @@ class Adopt extends Component {
                         <button
                             onClick={(e) => {
                                 e.preventDefault();
-                                this.handleAddUserToQueue();
+                                this.handleAddUserToQueue(this.state.name);
+                                this.timer();
                             }}
                         >
                             Submit
@@ -68,21 +74,33 @@ class Adopt extends Component {
             }
         });
     };
-    timerFunc = () => {
-        const adoptionTimer = setInterval(() => {
-            const type = ["dogs", "cats"][Math.round(Math.random())];
-            this.adoptPet(type);
-            this.handleAddUserToQueue(faker.name.findName());
-            PetfulServices.dequeuePeople().then((res) =>
-                this.context.setAdopters(res)
-            );
-        }, 5000);
 
-        const stopTimer = setInterval(() => {
-            if (this.state.firstPerson) {
-                clearInterval(adoptionTimer);
-                clearInterval(stopTimer);
+    timer = () => {
+        let count = 0;
+        const interval = setInterval(() => {
+            console.log("Timer called");
+            console.log("Users name: ", this.state.name);
+            this.handleAddUserToQueue(faker.name.findName());
+            const type = ["cats", "dogs"][Math.round(Math.random())];
+            this.adoptPet(type);
+            count++;
+            if (this.state.firstPerson === this.state.name) {
+                this.stopTime(interval);
+                this.setState({
+                    isUserFirstPerson: true,
+                });
             }
+        }, 5000);
+    };
+
+    stopTime = (interval) => {
+        clearInterval(interval);
+        console.log("Timer is stopped");
+    };
+
+    dequeuePeople = () => {
+        PetfulServices.dequeuePeople().then((json) => {
+            console.log("dequeued");
         });
     };
 
@@ -101,6 +119,7 @@ class Adopt extends Component {
             this.context.setCats(first, list);
         });
     }
+
     render() {
         return (
             <div className='adoption-page'>
@@ -108,7 +127,6 @@ class Adopt extends Component {
                 <div className='adopter-sect'>
                     {this.context.Adopters.map((names) => {
                         return names.map((name, y) => {
-                            this.state.adopterNames.push(name);
                             return (
                                 <h2 className='adopter-name' key={y}>
                                     {name}
@@ -141,15 +159,17 @@ class Adopt extends Component {
                 <div className='pet-display'>
                     <DisplayPet
                         pet={this.context.Dogs}
-                        type={"Dog"}
+                        type={"dogs"}
                         userName={this.state.name}
+                        adopt={this.state.isUserFirstPerson}
                     />
                 </div>
                 <div className='pet-display'>
                     <DisplayPet
                         pet={this.context.Cats}
-                        type={"Cat"}
+                        type={"cats"}
                         userName={this.state.name}
+                        adopt={this.state.isUserFirstPerson}
                     />
                 </div>
             </div>

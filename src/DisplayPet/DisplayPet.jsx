@@ -1,21 +1,31 @@
 import React, { Component } from "react";
 import PetfulContext from "../Context/Context";
+import PetfulServices from "../Services/PetfulServices";
 import "./DisplayPet.css";
 
 export class DisplayPet extends Component {
     static contextType = PetfulContext;
-    state = { currentPet: {} };
+    state = { currentPet: {}, adoptButton: false };
     handleAdopt = () => {
-        return this.setState({
-            currentPet: this.props.pet.first,
-        });
-    };
-    handleAdoptButton = () => {
-        this.context.Adopters.forEach((names) => {
-            if (names[0] === this.props.userName) {
-                return <button onClick={this.handleAdopt}>Adopt</button>;
+        PetfulServices.dequeuePet(this.props.type).then((json) => {
+            PetfulServices.dequeuePeople();
+            if (this.props.type === "dogs") {
+                this.context.setDogs(json.value, json.list);
+            }
+            if (this.props.type === "cats") {
+                this.context.setCats(json.value, json.list);
             }
         });
+    };
+
+    handleAdoptButton = () => {
+        if (this.props.adopt === true) {
+            return (
+                <div>
+                    <button onClick={() => this.handleAdopt()}>Adopt</button>
+                </div>
+            );
+        }
     };
     renderFirstPetInfo = () => {
         return (
