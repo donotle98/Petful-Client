@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import PetfulContext from "../Context/Context";
 import PetfulServices from "../Services/PetfulServices";
+import faker from "faker";
 import "./DisplayPet.css";
 
 export class DisplayPet extends Component {
     static contextType = PetfulContext;
-    state = { currentPet: {}, adoptButton: false };
+    state = { currentPet: {}, adoptButton: false, userHasAdopted: false };
     handleAdopt = () => {
         PetfulServices.dequeuePet(this.props.type).then((json) => {
-            this.props.dequeuePeople();
             if (this.props.type === "dogs") {
                 this.context.setDogs(json.value, json.list);
             }
@@ -16,6 +16,21 @@ export class DisplayPet extends Component {
                 this.context.setCats(json.value, json.list);
             }
         });
+        this.setState({ userHasAdopted: true });
+        this.props.dequeuePeople();
+    };
+
+    handleAlreadyAdopted = () => {
+        if (this.state.userHasAdopted) {
+            return (
+                <div className='adopted-message'>
+                    <h1>
+                        Congratulations! You have adopted{" "}
+                        {this.props.pet.first.name}
+                    </h1>
+                </div>
+            );
+        }
     };
 
     handleAdoptButton = () => {
@@ -25,8 +40,6 @@ export class DisplayPet extends Component {
                     <button
                         onClick={() => {
                             this.handleAdopt();
-                            window.location.reload();
-                            return false;
                         }}
                     >
                         Adopt
@@ -57,6 +70,7 @@ export class DisplayPet extends Component {
     render() {
         return (
             <div className='each-petInfo'>
+                {this.handleAlreadyAdopted()}
                 <h2>Next {this.props.type} in line to be adopted: </h2>
                 {this.renderFirstPetInfo()}
             </div>
