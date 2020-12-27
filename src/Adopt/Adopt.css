@@ -33,10 +33,38 @@
 .adoption-page h2 {
     margin: 10px;
 }
+.adopted-message {
+    text-align: center;
+    padding: 25px;
+    background: linear-gradient(
+        to right,
+        #6666ff,
+        #0099ff,
+        #00ff00,
+        #ff3399,
+        #6666ff
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: rainbow_animation 6s ease-in-out infinite;
+    background-size: 400% 100%;
+}
 @import url("https://fonts.googleapis.com/css2?family=Nerko+One&display=swap");
 .adopter-name {
     text-align: center;
     margin: 20px;
     font-family: "Nerko One", cursive;
     font-size: 30px;
+}
+
+@keyframes rainbow_animation {
+    0%,
+    100% {
+        background-position: 0 0;
+    }
+
+    50% {
+        background-position: 100% 0;
+    }
 }

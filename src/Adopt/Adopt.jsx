@@ -14,6 +14,29 @@ class Adopt extends Component {
         isUserFirstPerson: false,
         firstPerson: "",
         adopterNames: [],
+        adoptedPetName: "",
+        userAdopted: false,
+    };
+    setAdoptedPetName = (name) => {
+        this.setState({
+            adoptedPetName: name,
+            userAdopted: true,
+            isUserFirstPerson: false,
+        });
+        this.handleAddUserToQueue(faker.name.findName());
+        this.dequeuePeople();
+    };
+    handleAlreadyAdopted = () => {
+        if (this.state.userAdopted) {
+            return (
+                <div className='adopted-message'>
+                    <h1>
+                        Congratulations! You have adopted{" "}
+                        {this.state.adoptedPetName}
+                    </h1>
+                </div>
+            );
+        }
     };
     handleChangeName = (e) => {
         this.setState({
@@ -29,7 +52,7 @@ class Adopt extends Component {
             this.setState({
                 firstPerson: res[1],
             });
-            if (res[0] !== this.state.name) {
+            if (res[0] !== this.state.name || this.state.userAdopted) {
                 this.dequeuePeople();
             }
         });
@@ -78,8 +101,6 @@ class Adopt extends Component {
 
     timer = () => {
         const interval = setInterval(() => {
-            console.log("Timer called");
-            console.log("Users name: ", this.state.name);
             this.handleAddUserToQueue(faker.name.findName());
             const type = ["cats", "dogs"][Math.round(Math.random())];
             this.adoptPet(type);
@@ -95,13 +116,12 @@ class Adopt extends Component {
 
     stopTime = (interval) => {
         clearInterval(interval);
-        console.log("Timer is stopped");
     };
 
     dequeuePeople = () => {
-        PetfulServices.dequeuePeople().then((json) => {
-            console.log("dequeued");
-        });
+        PetfulServices.dequeuePeople().then((json) =>
+            this.context.setAdopters(json)
+        );
     };
 
     componentDidMount() {
@@ -156,6 +176,7 @@ class Adopt extends Component {
                     {this.handleSubmitNewName()}
                 </div>
                 <hr />
+                {this.handleAlreadyAdopted()}
                 <div className='pet-display'>
                     <DisplayPet
                         pet={this.context.Dogs}
@@ -163,6 +184,7 @@ class Adopt extends Component {
                         userName={this.state.name}
                         adopt={this.state.isUserFirstPerson}
                         dequeuePeople={this.dequeuePeople}
+                        setAdoptedPetName={this.setAdoptedPetName}
                     />
                 </div>
                 <div className='pet-display'>
@@ -172,6 +194,7 @@ class Adopt extends Component {
                         userName={this.state.name}
                         adopt={this.state.isUserFirstPerson}
                         dequeuePeople={this.dequeuePeople}
+                        setAdoptedPetName={this.setAdoptedPetName}
                     />
                 </div>
             </div>

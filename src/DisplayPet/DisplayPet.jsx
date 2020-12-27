@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PetfulContext from "../Context/Context";
 import PetfulServices from "../Services/PetfulServices";
-import faker from "faker";
 import "./DisplayPet.css";
 
 export class DisplayPet extends Component {
@@ -17,20 +16,7 @@ export class DisplayPet extends Component {
             }
         });
         this.setState({ userHasAdopted: true });
-        this.props.dequeuePeople();
-    };
-
-    handleAlreadyAdopted = () => {
-        if (this.state.userHasAdopted) {
-            return (
-                <div className='adopted-message'>
-                    <h1>
-                        Congratulations! You have adopted{" "}
-                        {this.props.pet.first.name}
-                    </h1>
-                </div>
-            );
-        }
+        this.props.setAdoptedPetName(this.props.pet.first.name);
     };
 
     handleAdoptButton = () => {
@@ -70,7 +56,6 @@ export class DisplayPet extends Component {
     render() {
         return (
             <div className='each-petInfo'>
-                {this.handleAlreadyAdopted()}
                 <h2>Next {this.props.type} in line to be adopted: </h2>
                 {this.renderFirstPetInfo()}
             </div>
